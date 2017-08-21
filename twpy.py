@@ -24,12 +24,8 @@ def prep_args():
 def get_timeline():
     '''get timeline'''
     C = lambda n: '\033[%sm' % str(n)
-    BLCF = C(30)
     BLUF = C(32)
     REDF = C(31)
-    GRYB = C(40)
-    BLCB = C(100)
-    LGRB = C(107)
     ENDC = C(0)
 
     url = 'https://api.twitter.com/1.1/statuses/home_timeline.json'
@@ -49,7 +45,7 @@ def get_timeline():
         for tweet in timeline:
             if tweet['retweet_count']>5 or tweet['favorite_count']>10:
                 LC = C('48;5;236') if counter % 2 == 0 else C('48;5;232')
-                SC = C('38;5;255') if counter % 2 == 0 else C('38;5;249')
+                SC = C('38;5;255') if counter % 2 == 0 else C('38;5;252')
                 rt, fv = tweet['retweet_count'], tweet['favorite_count']
                 print(LC+BLUF+ '%1.1f'%log(rt + 1) +' '+ENDC,
                       LC+REDF+ '%1.1f'%log(fv + 1) +' '+ENDC,
@@ -64,6 +60,7 @@ def get_timeline():
 
 def post_tweet(text):
     '''post a tweet'''
+    print('=== tweet ===')
     url = 'https://api.twitter.com/1.1/statuses/update.json'
     params = {'status': text}
     req = twitter.post(url, params=params)
@@ -80,10 +77,11 @@ if __name__ == '__main__':
     twitter = OAuth1Session(*_tokens)
     args = prep_args()
     if args.tweet:
-        print('=== tweet ===')
+        # post a tweet.
         text = args.tweet
         post_tweet(text)
     elif args.timeline:
+        # get timeline.
         get_timeline()
     else:
         print(USAGE)
