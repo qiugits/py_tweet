@@ -42,14 +42,15 @@ class Twitter:
 
     def get_timeline(self):
         '''get timeline'''
-        C = lambda n: '\033[%sm' % str(n)
-        BLUF = C(32)
-        REDF = C(31)
-        ENDC = C(0)
 
         url = 'https://api.twitter.com/1.1/statuses/home_timeline.json'
         params = {'count': 200}
         req = self.twitter.get(url, params=params)
+
+        def C(n): return '\033[%sm' % str(n)
+        BLUF = C(32)
+        REDF = C(31)
+        ENDC = C(0)
         if req.status_code == 200:
             # api limit info
             limit = int(req.headers['x-rate-limit-remaining'])
@@ -79,9 +80,11 @@ class Twitter:
     def post_tweet(self, text):
         '''post a tweet'''
         print('=== tweet ===')
+
         url = 'https://api.twitter.com/1.1/statuses/update.json'
         params = {'status': text}
         req = self.twitter.post(url, params=params)
+
         if req.status_code == 200:
             print('Success')
         else:
