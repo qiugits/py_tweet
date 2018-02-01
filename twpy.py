@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 from requests_oauthlib import OAuth1Session
 import json
 import argparse
@@ -7,41 +7,44 @@ from math import log10 as log
 from datetime import datetime as dt
 
 
-USAGE = '''
-[-tw text]  tweet text
-[-tl]       show timeline'''
-DESCR = '''With this, you can tweet from the terminal.'''
-
-
 def prep_args():
-    parser = argparse.ArgumentParser(description=DESCR,
-                                     usage=USAGE)
-    parser.add_argument('-tw', '--tweet', help='tweet text', required=False)
-    parser.add_argument('-tl', '--timeline',
-                        action='store_true', help='view TL', required=False)
+    parser = argparse.ArgumentParser(
+        description='''This command help you tweet
+        or view timeline from commandline''')
+    parser.add_argument('tweet',
+                        help='''Pass a string to tweet.
+                        If none is given, will get timeline''',
+                        nargs='?')
     args = parser.parse_args()
     return args
 
+
 TWITTER_USER_NAME = ''
-TWITTER_ENVS = {'TWITTER_CONSUMER_SECRET',
-                'TWITTER_CONSUMER_KEY',
-                'TWITTER_ACCESS_TOKEN',
-                'TWITTER_ACCESS_TOKEN_SECRET'}
+TWITTER_ENVS = [
+    'TWITTER_CONSUMER_KEY',
+    'TWITTER_CONSUMER_SECRET',
+    'TWITTER_ACCESS_TOKEN',
+    'TWITTER_ACCESS_TOKEN_SECRET',
+]
 
 
 class Twitter:
 
     def __init__(self):
         # Prepare API keys
-        if set(os.environ) >= TWITTER_ENVS:
-            pass
-        proj_dir = os.path.expanduser('~/workspace/projects/tweet_py/')
-        with open(proj_dir+'secrets.json', 'r') as f:
-            _tokens = json.load(f)
-        self.twitter = OAuth1Session(*_tokens)
+        if set(os.environ) >= set(TWITTER_ENVS):
+            self.twitter = OAuth1Session(
+                *[os.environ[token] for token in TWITTER_ENVS]
+            )
+        else:
+            print('env not found. reading from json')
+            proj_dir = os.path.expanduser('~/workspace/projects/tweet_py/')
+            with open(proj_dir+'secrets.json', 'r') as f:
+                _tokens = json.load(f)
+            self.twitter = OAuth1Session(*_tokens)
 
     def get_timeline(self):
-        '''get timeline'''
+        '''Get timeline'''
 
         url = 'https://api.twitter.com/1.1/statuses/home_timeline.json'
         params = {'count': 200}
@@ -78,14 +81,14 @@ class Twitter:
             print('Error: %d' % req.status_code)
 
     def post_tweet(self, text):
-        '''post a tweet'''
-        print('=== tweet ===')
+        '''Post a tweet'''
 
         url = 'https://api.twitter.com/1.1/statuses/update.json'
         params = {'status': text}
         req = self.twitter.post(url, params=params)
 
         if req.status_code == 200:
+            print('=== tweet ===')
             print('Success')
         else:
             print('Error: %d' % req.status_code)
@@ -97,8 +100,6 @@ if __name__ == '__main__':
         # post a tweet.
         text = args.tweet
         Twitter().post_tweet(text)
-    elif args.timeline:
+    else:
         # get timeline.
         Twitter().get_timeline()
-    else:
-        print(USAGE)
