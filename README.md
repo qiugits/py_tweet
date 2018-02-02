@@ -1,5 +1,10 @@
 # Installation
-### Tokens
+## Using Pip
+```terminal
+$ pip install git+https://github.com/qiugits/twpy
+```
+
+## Prepare Tokens
 Please prepare tokens by yourself. 
 You can get them from [Twitter Developer][Twitter Developer].
 Then store them as environmental values.
@@ -21,15 +26,6 @@ set -x TWITTER_ACCESS_TOKEN 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 set -x TWITTER_ACCESS_TOKEN_SECRET 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 ```
 
-### Path
-Place twpy to anywhere path is set up, or set up path to twpy.
-
-**Esample**:
-```terminal
-$ cd ~
-$ git clone https://github.com/qiugits/py_tweet
-$ ln py_tweet/twpy.py $YOUR_PATH/twpy
-```
 
 # Usage
 ```
