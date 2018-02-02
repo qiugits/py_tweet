@@ -39,6 +39,13 @@ class Twitter:
         else:
             print('Please set up your env values with Twitter tokens')
 
+    def _print_error(self, req):
+        print(f'Error: {req.status_code} {req.reason}')
+        print('Details: ')
+        for e in req.json()['errors']:
+            for k, v in e.items():
+                print(f'{k}: {v}')
+
     def get_timeline(self):
         '''Get timeline'''
 
@@ -74,7 +81,7 @@ class Twitter:
                     if counter > 14:
                         break
         else:
-            print('Error: %d' % req.status_code)
+            self._print_error(req)
 
     def post_tweet(self, text):
         '''Post a tweet'''
@@ -87,7 +94,7 @@ class Twitter:
             print('=== tweet ===')
             print('Success')
         else:
-            print('Error: %d' % req.status_code)
+            self._print_error(req)
 
 
 def main():
