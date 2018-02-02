@@ -94,7 +94,7 @@ class Twitter:
             print('Error: %d' % req.status_code)
 
 
-if __name__ == '__main__':
+def main():
     args = prep_args()
     if args.tweet:
         # post a tweet.
