@@ -1,2 +1,2 @@
-twpy.egg-info/
-twpy/__pycache__/
+*.egg-info/
+__pycache__/

@@ -6,9 +6,8 @@ setup(
     version='1.0',
     packages=find_packages(),
     install_requires=[],
-    entry_points={
-        'console_scripts': 'twpy = twpy.__main__:main'
-    },
+    scripts=['bin/twpy'],
+    # entry_points={'console_scripts': 'twpy = twpy.__main__:main'},
     zip_safe=False,
     classifiers=[
         'Environment :: Console',
