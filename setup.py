@@ -5,7 +5,7 @@ setup(
     name='twpy',
     version='1.0',
     packages=find_packages(),
-    install_requires=[],
+    install_requires=['requests-oauthlib'],
     scripts=['bin/twpy'],
     # entry_points={'console_scripts': 'twpy = twpy.__main__:main'},
     zip_safe=False,

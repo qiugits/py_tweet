@@ -37,11 +37,7 @@ class Twitter:
                 *[os.environ[token] for token in TWITTER_ENVS]
             )
         else:
-            print('env not found. reading from json')
-            proj_dir = os.path.expanduser('~/workspace/projects/tweet_py/')
-            with open(proj_dir+'secrets.json', 'r') as f:
-                _tokens = json.load(f)
-            self.twitter = OAuth1Session(*_tokens)
+            print('Please set up your env values with Twitter tokens')
 
     def get_timeline(self):
         '''Get timeline'''
