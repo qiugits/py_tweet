@@ -6,8 +6,8 @@ setup(
     version='1.0',
     packages=find_packages(),
     install_requires=['requests-oauthlib'],
-    scripts=['bin/twpy'],
-    # entry_points={'console_scripts': 'twpy = twpy.__main__:main'},
+    # scripts=['twpy/__main__.py'],
+    entry_points={'console_scripts': 'twpy = twpy:main'},
     zip_safe=False,
     classifiers=[
         'Environment :: Console',

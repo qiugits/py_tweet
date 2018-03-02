@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 from requests_oauthlib import OAuth1Session
 import json
 import argparse
