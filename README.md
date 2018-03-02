@@ -28,16 +28,25 @@ set -x TWITTER_ACCESS_TOKEN_SECRET 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
 # Usage
+**Show help**
 ```
 $ twpy -h
+```
+
+**Show your Timeline**
+```
 $ twpy
+```
+
+**Tweet! with example (meme)**
+```
 $ twpy 'Twitter Addiction!'
 $ twpy 'Ahh the class is so boring'
 $ twpy 'Sh*t! The professor found me tweeting! F*ck my life!'
 $ twpy 'Professor N*sh*'s class is freaking AWESOME!!!'
 ```
 
-[reference](https://twitter.com/YasuharuNishi/status/958213927053099008)
+[meme reference](https://twitter.com/YasuharuNishi/status/958213927053099008)
 
 Happy twitter life!
 
